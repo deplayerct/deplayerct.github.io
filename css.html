@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeplayerCT | 社区支持与服务</title>
+
+<link rel="icon" type="image/png" href="dpicc.png">
+<link rel="apple-touch-icon" href="dpicc.png">
+
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('dpct-theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+
+<style>
+  /* 浅色主题变量 */
+  :root {
+    color-scheme: light;
+
+    --sky:        #3E8FC4;
+    --sky-deep:   #2E7CB0;
+    --sky-soft:   #6FB5E8;
+    --sky-pale:   #E8F3FB;
+    --yellow:     #F7C948;
+    --orange:     #F08A3C;
+    --orange-deep:#D96C1E;
+
+    --bg:         #F4F8FC;
+    --surface:    #FFFFFF;
+    --surface-2:  #F0F5FB;
+    --border:     #DDE7F2;
+    --heading:    #2E7CB0;
+    --text:       #1E2A3A;
+    --text-muted: #55657A;
+    --text-soft:  #3D4B5F;
+
+    --topbar-bg:      #3E8FC4;
+    --topbar-border:  #F08A3C;
+    --topbar-text:    #FFFFFF;
+    --topbar-soft:    #D6E9F8;
+    --topbar-divider: rgba(255, 255, 255, 0.35);
+
+    --hero-from:      #6FB5E8;
+    --hero-to:        #2E7CB0;
+    --hero-text:      #FFFFFF;
+    --hero-soft:      #E8F3FB;
+
+    --footer-bg:      #1B3A4F;
+    --footer-text:    #9FB4C6;
+    --footer-soft:    #B8C9D8;
+    --footer-bottom:  #7A94AA;
+    --footer-line:    rgba(255, 255, 255, 0.12);
+
+    --shadow-card:  0 12px 26px rgba(62, 143, 196, 0.14);
+    --shadow-top:   0 2px 14px rgba(46, 124, 176, 0.28);
+  }
+
+  /* 深色主题变量 */
+  [data-theme="dark"] {
+    color-scheme: dark;
+
+    --sky:        #4E9FD0;
+    --sky-deep:   #7CBBE4;
+    --sky-soft:   #2A5473;
+    --sky-pale:   #1B3346;
+
+    --bg:         #0E1822;
+    --surface:    #16242F;
+    --surface-2:  #1B2C3A;
+    --border:     #24384A;
+    --heading:    #7CBBE4;
+    --text:       #E4EDF5;
+    --text-muted: #93A9BD;
+    --text-soft:  #C3D3E1;
+
+    --topbar-bg:      #10202C;
+    --topbar-border:  #F08A3C;
+    --topbar-text:    #EAF3FB;
+    --topbar-soft:    #9FBDD6;
+    --topbar-divider: rgba(255, 255, 255, 0.16);
+
+    --hero-from:      #16323F;
+    --hero-to:        #0E1F2B;
+    --hero-text:      #EAF3FB;
+    --hero-soft:      #B9CFE1;
+
+    --footer-bg:      #0A141C;
+    --footer-text:    #7E93A6;
+    --footer-soft:    #A7BCCF;
+    --footer-bottom:  #6B8093;
+    --footer-line:    rgba(255, 255, 255, 0.08);
+
+    --shadow-card:  0 12px 26px rgba(0, 0, 0, 0.45);
+    --shadow-top:   0 2px 14px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI",
+                 system-ui, -apple-system, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    transition: background-color .25s ease, color .25s ease;
+  }
+
+  img { display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* 顶栏 */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--topbar-bg);
+    border-bottom: 3px solid var(--topbar-border);
+    box-shadow: var(--shadow-top);
+    transition: background-color .25s ease;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 11px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .logo {
+    flex: 0 0 auto;
+    height: clamp(38px, 5vw, 54px);
+    width: auto;
+    max-width: 240px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.28));
+  }
+
+  .subtitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding-left: 18px;
+    border-left: 1px solid var(--topbar-divider);
+    min-width: 0;
+  }
+
+  .subtitle .cn {
+    font-size: clamp(13px, 1.5vw, 17px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--topbar-text);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .subtitle .en {
+    font-size: clamp(8.5px, 1vw, 12px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--topbar-soft);
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .topnav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  .topnav a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--topbar-soft);
+    letter-spacing: 0.04em;
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+
+  .topnav a:hover {
+    color: #FFFFFF;
+    border-bottom-color: var(--yellow);
+  }
+
+  .theme-toggle {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--topbar-divider);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--topbar-text);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s, transform .2s, border-color .2s;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--yellow);
+    transform: translateY(-1px);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+  }
+
+  /* 主内容区 */
+  .hero {
+    background:
+      radial-gradient(900px 420px at 85% -10%, rgba(247, 201, 72, 0.16), transparent 70%),
+      linear-gradient(135deg, var(--hero-from) 0%, var(--hero-to) 100%);
+    color: var(--hero-text);
+    padding: clamp(64px, 10vw, 128px) 24px clamp(72px, 12vw, 144px);
+    transition: background .25s ease;
+  }
+
+  .hero-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .hero-kicker {
+    margin: 0 0 18px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+
+  .hero h1 {
+    margin: 0 0 28px;
+    font-size: clamp(30px, 5vw, 54px);
+    line-height: 1.35;
+    font-weight: 800;
+    color: var(--hero-text);
+    letter-spacing: 0.01em;
+  }
+
+  .hero-desc {
+    margin: 0;
+    max-width: 760px;
+    font-size: clamp(15px, 1.6vw, 18px);
+    color: var(--hero-soft);
+    line-height: 1.9;
+  }
+
+  /* 治理与发展能力 */
+  .capabilities {
+    background: var(--bg);
+    padding: clamp(56px, 8vw, 96px) 24px;
+    transition: background-color .25s ease;
+  }
+
+  .cap-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cap-head {
+    margin: 0 0 clamp(28px, 4vw, 42px);
+    text-align: left;
+  }
+
+  .cap-head h2 {
+    margin: 0;
+    font-size: clamp(22px, 2.6vw, 30px);
+    color: var(--heading);
+  }
+
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+  }
+
+  .cap-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 26px 24px 24px;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background-color .25s;
+  }
+
+  .cap-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--cap-accent, var(--sky));
+  }
+
+  .cap-card:nth-child(1) { --cap-accent: var(--sky); }
+  .cap-card:nth-child(2) { --cap-accent: var(--orange); }
+  .cap-card:nth-child(3) { --cap-accent: var(--yellow); }
+  .cap-card:nth-child(4) { --cap-accent: var(--sky-deep); }
+  .cap-card:nth-child(5) { --cap-accent: var(--orange-deep); }
+
+  .cap-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--cap-accent);
+  }
+
+  .cap-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    background: var(--sky-pale);
+    color: var(--heading);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+  }
+
+  .cap-card h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--heading);
+  }
+
+  .cap-card p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* 新闻公告 */
+  .news {
+    background: var(--bg);
+    padding: clamp(56px, 8vw, 96px) 24px;
+    transition: background-color .25s ease;
+  }
+
+  .news-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .news-head {
+    margin: 0 0 clamp(28px, 4vw, 42px);
+    text-align: left;
+  }
+
+  .news-head h2 {
+    margin: 0;
+    font-size: clamp(22px, 2.6vw, 30px);
+    color: var(--heading);
+  }
+
+  .news-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .news-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background-color .25s;
+  }
+
+  .news-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--sky);
+  }
+
+  .news-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 68px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--sky-pale);
+    color: var(--heading);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .news-body h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: var(--heading);
+  }
+
+  .news-body p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .news-date {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+
+  /* 团队成员 */
+  .team {
+    background: var(--bg);
+    padding: clamp(56px, 8vw, 96px) 24px;
+    transition: background-color .25s ease;
+  }
+
+  .team-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .team-head {
+    margin: 0 0 clamp(28px, 4vw, 42px);
+    text-align: left;
+  }
+
+  .team-head h2 {
+    margin: 0;
+    font-size: clamp(22px, 2.6vw, 30px);
+    color: var(--heading);
+  }
+
+  /* 社区主管卡片 */
+  .lead-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: clamp(26px, 4vw, 40px);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: clamp(22px, 4vw, 36px);
+    align-items: center;
+    margin-bottom: 20px;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background-color .25s;
+  }
+
+  .lead-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--orange);
+  }
+
+  .lead-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--orange);
+  }
+
+  .lead-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 0;
+    background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yellow);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  }
+
+  [data-theme="dark"] .lead-avatar {
+    background: linear-gradient(135deg, #1F4A66 0%, #123246 100%);
+    box-shadow: inset 0 0 0 1px rgba(124, 187, 228, 0.25);
+  }
+
+  .role-tag {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 4px 12px;
+    border-radius: 0;
+    background: var(--sky-pale);
+    color: var(--heading);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .lead-card h3 {
+    margin: 0 0 8px;
+    font-size: clamp(22px, 2.5vw, 28px);
+    color: var(--heading);
+  }
+
+  .lead-card p {
+    margin: 0 0 12px;
+    font-size: 14.5px;
+    color: var(--text-soft);
+    line-height: 1.85;
+  }
+
+  .lead-card p:last-child { margin-bottom: 0; }
+
+  /* 社区副管卡片 */
+  .deputy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .deputy-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 24px 22px;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background-color .25s;
+  }
+
+  .deputy-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--sky-soft);
+  }
+
+  .deputy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--sky-soft);
+  }
+
+  .deputy-card h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--heading);
+  }
+
+  .deputy-card p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* 页脚 */
+  .footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 42px 24px 28px;
+    transition: background-color .25s ease;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer-brand { max-width: 420px; }
+
+  .footer-brand strong {
+    display: block;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .footer-brand span {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--footer-text);
+  }
+
+  .footer-brand p {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 26px;
+  }
+
+  .footer-links a {
+    font-size: 13.5px;
+    color: var(--footer-soft);
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--yellow); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 26px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--footer-line);
+    font-size: 12.5px;
+    color: var(--footer-bottom);
+  }
+
+  /* 响应式 */
+  @media (max-width: 900px) {
+    .lead-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .lead-avatar { margin: 0 auto; }
+  }
+
+  @media (max-width: 760px) {
+    .topnav { display: none; }
+    .news-item { grid-template-columns: 1fr; gap: 10px; }
+    .news-date { justify-self: start; }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner { padding: 9px 14px; gap: 12px; }
+    .subtitle { padding-left: 12px; }
+    .subtitle .cn { letter-spacing: 0.04em; }
+    .subtitle .en { letter-spacing: 0.08em; }
+    .theme-toggle { width: 38px; height: 38px; font-size: 16px; }
+    .hero { padding-left: 16px; padding-right: 16px; }
+    .capabilities { padding-left: 16px; padding-right: 16px; }
+    .news { padding-left: 16px; padding-right: 16px; }
+    .team { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <img class="logo" src="dpic.png" alt="DeplayerCT 徽标">
+
+      <div class="subtitle">
+        <span class="cn">DeplayerCT · 社区支持与服务</span>
+        <span class="en">COMMUNITY SUPPORTS &amp; SERVICES</span>
+      </div>
+
+      <nav class="topnav">
+        <a href="#capabilities">治理能力</a>
+        <a href="#news">新闻公告</a>
+        <a href="#team">团队成员</a>
+      </nav>
+
+      <button class="theme-toggle" id="themeToggle" type="button"
+              aria-label="切换深色/浅色模式" title="切换深色/浅色模式">🌙</button>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-kicker">
+        DeplayerCT的社区治理与发展主管团队 | 社区支持与服务
+      </p>
+
+      <h1>
+        社区是我们的，也是你们的<br>
+        努力不让社区失望。
+      </h1>
+
+      <p class="hero-desc">
+        Deplayer社区治理与发展主管团队是一个对社区小伙伴们十分友好、有社区经验的且尽力做到负责的社区治理与发展团队，对社区提供支持和服务。
+      </p>
+    </div>
+  </section>
+
+  <!-- 治理与发展能力 -->
+  <section class="capabilities" id="capabilities">
+    <div class="cap-inner">
+      <div class="cap-head">
+        <h2>社区治理与发展能力</h2>
+      </div>
+
+      <div class="cap-grid">
+        <article class="cap-card">
+          <div class="cap-num">01</div>
+          <h3>方向引导</h3>
+          <p>引导社区走向正确的发展方向。</p>
+        </article>
+
+        <article class="cap-card">
+          <div class="cap-num">02</div>
+          <h3>社区支持</h3>
+          <p>支持社区发展。</p>
+        </article>
+
+        <article class="cap-card">
+          <div class="cap-num">03</div>
+          <h3>环境维护</h3>
+          <p>维护社区正常交流、交互与活动气氛。</p>
+        </article>
+
+        <article class="cap-card">
+          <div class="cap-num">04</div>
+          <h3>恶俗处理</h3>
+          <p>在紧急情况下应急处理恶俗，并在转换为常规情况下进行有力的判罚和处置。</p>
+        </article>
+
+        <article class="cap-card">
+          <div class="cap-num">05</div>
+          <h3>信息研究</h3>
+          <p>收集信息，构建新闻和 CSR（社区安全报告），让社区更了解事件情况或实时社区状况。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文章与文档 -->
+  <section class="news" id="news">
+    <div class="news-inner">
+      <div class="news-head">
+        <h2>文章与文档</h2>
+      </div>
+
+      <div class="news-list">
+        <a href="./cssm/news/" class="news-item">
+          <span class="news-tag">公告</span>
+          <div class="news-body">
+            <h3></h3>
+            <p></p>
+          </div>
+          <span class="news-date"></span>
+        </a>
+
+        <a href="./cssm/csrs/" class="news-item">
+          <span class="news-tag">CSR</span>
+          <div class="news-body">
+            <h3></h3>
+            <p></p>
+          </div>
+          <span class="news-date"></span>
+        </a>
+
+        <a href="./cssm/governing/" class="news-item">
+          <span class="news-tag">治理</span>
+          <div class="news-body">
+            <h3></h3>
+            <p></p>
+          </div>
+          <span class="news-date"></span>
+        </a>
+
+        <a href="./cssm/tips/" class="news-item">
+          <span class="news-tag">提示</span>
+          <div class="news-body">
+            <h3></h3>
+            <p></p>
+          </div>
+          <span class="news-date"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 团队成员 -->
+  <section class="team" id="team">
+    <div class="team-inner">
+      <div class="team-head">
+        <h2>团队成员</h2>
+      </div>
+
+      <!-- 社区主管 -->
+      <article class="lead-card">
+        <div class="lead-avatar" aria-hidden="true">DrL</div>
+        <div>
+          <span class="role-tag">社区主管</span>
+          <h3>DrL</h3>
+          <p>
+            DrL 是 DeplayerCT 的社区主管，负责团队整体社区治理与发展方向的统筹。其加入Deplayer前有过长久的经历：在2018年加入了一个社区，并开始社区主管生涯。该社区发生了两次较严重的社区战争，文化异化、思想腐蚀，与最初的样子判若两社，最终导致了社区的解散。因此，他的一个朋友崩溃消失，最后只留下了一句“别重蹈覆辙”。他有丰富的通过观察社区总结而来的经验，关注网络社区中的社区战争、社区文化侵蚀与管理格局等严峻性社区问题，对社区其他运行细节进行研究，并以小说《社区故史》反映社区现实，提醒后来者正视结构性问题。
+          </p>
+          <p>
+            在治理思路上，DrL 主张把记录、复盘与结构性问题放在社区治理的核心位置：社区支持与服务不应只处理眼前的一次冲突，而应让规则、沟通渠道与治理方式经得起时间与事件的双重检验，避免社区重蹈覆辙。
+          </p>
+        </div>
+      </article>
+
+      <!-- 社区副管 -->
+      <div class="deputy-grid">
+        <article class="deputy-card">
+          <span class="role-tag">社区副管 · 培训中</span>
+          <h3>副管 Deplayer515</h3>
+          <p>Deplayer创立人。</p>
+        </article>
+
+        <article class="deputy-card">
+          <span class="role-tag">社区副管</span>
+          <h3>加入我们！</h3>
+          <p>我们正在寻找有热情、有经验的社区成员加入我们的团队，共同为社区的发展贡献力量。</p>
+        </article>
+
+        <article class="deputy-card">
+          <span class="role-tag">社区副管</span>
+          <h3>加入我们！</h3>
+          <p>如果您有意愿，请将邮箱发送到dctcss@outlook.com</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <strong><a href="./index.html">DeplayerCT</a></strong>
+        <span>Community Supports &amp; Services</span>
+        <p>联系邮箱：<a href="mailto:dctcss@outlook.com">dctcss@outlook.com</a></p>
+      </div>
+
+      <nav class="footer-links">
+        <a href="#capabilities">治理能力</a>
+        <a href="#news">新闻公告</a>
+        <a href="#team">团队成员</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 DeplayerCT
+    </div>
+  </footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+
+    function apply(theme) {
+      root.setAttribute('data-theme', theme);
+      btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      btn.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
+      btn.title = theme === 'dark' ? '切换到浅色模式' : '切换到深色模式';
+      try { localStorage.setItem('dpct-theme', theme); } catch (e) {}
+    }
+
+    var current = root.getAttribute('data-theme') || 'light';
+    apply(current);
+
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      apply(next);
+    });
+  })();
+</script>
+
+</body>
+</html>

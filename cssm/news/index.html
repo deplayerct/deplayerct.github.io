@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新闻公告 | DeplayerCT</title>
+
+<link rel="icon" type="image/png" href="../../dpicc.png">
+<link rel="apple-touch-icon" href="../../dpicc.png">
+
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('dpct-theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+
+<style>
+  /* 浅色主题变量 */
+  :root {
+    color-scheme: light;
+
+    --sky:        #3E8FC4;
+    --sky-deep:   #2E7CB0;
+    --sky-soft:   #6FB5E8;
+    --sky-pale:   #E8F3FB;
+    --yellow:     #F7C948;
+    --orange:     #F08A3C;
+    --orange-deep:#D96C1E;
+
+    --bg:         #F4F8FC;
+    --surface:    #FFFFFF;
+    --surface-2:  #F0F5FB;
+    --border:     #DDE7F2;
+    --heading:    #2E7CB0;
+    --text:       #1E2A3A;
+    --text-muted: #55657A;
+    --text-soft:  #3D4B5F;
+
+    --topbar-bg:      #3E8FC4;
+    --topbar-border:  #F08A3C;
+    --topbar-text:    #FFFFFF;
+    --topbar-soft:    #D6E9F8;
+    --topbar-divider: rgba(255, 255, 255, 0.35);
+
+    --footer-bg:      #1B3A4F;
+    --footer-text:    #9FB4C6;
+    --footer-soft:    #B8C9D8;
+    --footer-bottom:  #7A94AA;
+    --footer-line:    rgba(255, 255, 255, 0.12);
+
+    --shadow-card:  0 12px 26px rgba(62, 143, 196, 0.14);
+    --shadow-top:   0 2px 14px rgba(46, 124, 176, 0.28);
+  }
+
+  /* 深色主题变量 */
+  [data-theme="dark"] {
+    color-scheme: dark;
+
+    --sky:        #4E9FD0;
+    --sky-deep:   #7CBBE4;
+    --sky-soft:   #2A5473;
+    --sky-pale:   #1B3346;
+
+    --bg:         #0E1822;
+    --surface:    #16242F;
+    --surface-2:  #1B2C3A;
+    --border:     #24384A;
+    --heading:    #7CBBE4;
+    --text:       #E4EDF5;
+    --text-muted: #93A9BD;
+    --text-soft:  #C3D3E1;
+
+    --topbar-bg:      #10202C;
+    --topbar-border:  #F08A3C;
+    --topbar-text:    #EAF3FB;
+    --topbar-soft:    #9FBDD6;
+    --topbar-divider: rgba(255, 255, 255, 0.16);
+
+    --footer-bg:      #0A141C;
+    --footer-text:    #7E93A6;
+    --footer-soft:    #A7BCCF;
+    --footer-bottom:  #6B8093;
+    --footer-line:    rgba(255, 255, 255, 0.08);
+
+    --shadow-card:  0 12px 26px rgba(0, 0, 0, 0.45);
+    --shadow-top:   0 2px 14px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI",
+                 system-ui, -apple-system, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    transition: background-color .25s ease, color .25s ease;
+  }
+
+  img { display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* 顶栏 */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--topbar-bg);
+    border-bottom: 3px solid var(--topbar-border);
+    box-shadow: var(--shadow-top);
+    transition: background-color .25s ease;
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 11px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .logo {
+    flex: 0 0 auto;
+    height: clamp(38px, 5vw, 54px);
+    width: auto;
+    max-width: 240px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.28));
+  }
+
+  .subtitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding-left: 18px;
+    border-left: 1px solid var(--topbar-divider);
+    min-width: 0;
+  }
+
+  .subtitle .cn {
+    font-size: clamp(13px, 1.5vw, 17px);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--topbar-text);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .subtitle .en {
+    font-size: clamp(8.5px, 1vw, 12px);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--topbar-soft);
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .topnav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  .topnav a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--topbar-soft);
+    letter-spacing: 0.04em;
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+
+  .topnav a:hover {
+    color: #FFFFFF;
+    border-bottom-color: var(--yellow);
+  }
+
+  .theme-toggle {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--topbar-divider);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--topbar-text);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s, transform .2s, border-color .2s;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--yellow);
+    transform: translateY(-1px);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--yellow);
+    outline-offset: 2px;
+  }
+
+  /* 主内容区 */
+  .page-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: clamp(48px, 8vw, 96px) 24px clamp(64px, 10vw, 120px);
+    min-height: 46vh;
+    transition: background-color .25s ease;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 clamp(24px, 4vw, 36px);
+  }
+
+  .yellow-bar {
+    flex: 0 0 auto;
+    width: 6px;
+    height: 34px;
+    background: var(--yellow);
+  }
+
+  .page-header h2 {
+    margin: 0;
+    font-size: clamp(22px, 2.8vw, 32px);
+    color: var(--heading);
+    letter-spacing: 0.02em;
+  }
+
+  .content-placeholder {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(40px, 8vw, 72px) 24px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    transition: background-color .25s ease, border-color .25s ease;
+  }
+
+  /* 页脚 */
+  .footer {
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 42px 24px 28px;
+    transition: background-color .25s ease;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer-brand { max-width: 420px; }
+
+  .footer-brand strong {
+    display: block;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+
+  .footer-brand span {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--footer-text);
+  }
+
+  .footer-brand p {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 26px;
+  }
+
+  .footer-links a {
+    font-size: 13.5px;
+    color: var(--footer-soft);
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--yellow); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 26px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--footer-line);
+    font-size: 12.5px;
+    color: var(--footer-bottom);
+  }
+
+  /* 响应式 */
+  @media (max-width: 760px) {
+    .topnav { display: none; }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner { padding: 9px 14px; gap: 12px; }
+    .subtitle { padding-left: 12px; }
+    .subtitle .cn { letter-spacing: 0.04em; }
+    .subtitle .en { letter-spacing: 0.08em; }
+    .theme-toggle { width: 38px; height: 38px; font-size: 16px; }
+    .page-content { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="../../index.html">
+        <img class="logo" src="../../dpic.png" alt="DeplayerCT 徽标">
+      </a>
+
+      <div class="subtitle">
+        <span class="cn">DeplayerCT · 社区支持与服务</span>
+        <span class="en">COMMUNITY SUPPORTS &amp; SERVICES</span>
+      </div>
+
+      <nav class="topnav">
+      </nav>
+
+      <button class="theme-toggle" id="themeToggle" type="button"
+              aria-label="切换深色/浅色模式" title="切换深色/浅色模式">🌙</button>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="page-content">
+    <div class="page-header">
+      <div class="yellow-bar"></div>
+      <h2>新闻公告</h2>
+    </div>
+
+    <!-- 内容区占位 -->
+    <div class="content-placeholder">
+      暂无最新内容发布
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <strong><a href="../../index.html">DeplayerCT</a></strong>
+        <span><a href="../../css.html">Community Supports &amp; Services</a></span>
+        <p>联系邮箱：<a href="mailto:dctcss@outlook.com">dctcss@outlook.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 DeplayerCT
+    </div>
+  </footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+
+    function apply(theme) {
+      root.setAttribute('data-theme', theme);
+      btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      btn.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
+      btn.title = theme === 'dark' ? '切换到浅色模式' : '切换到深色模式';
+      try { localStorage.setItem('dpct-theme', theme); } catch (e) {}
+    }
+
+    var current = root.getAttribute('data-theme') || 'light';
+    apply(current);
+
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      apply(next);
+    });
+  })();
+</script>
+
+</body>
+</html>
