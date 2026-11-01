@@ -249,6 +249,63 @@
     letter-spacing: 0.02em;
   }
 
+  .news-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .news-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background-color .25s;
+  }
+
+  .news-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--sky);
+  }
+
+  .news-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 68px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--sky-pale);
+    color: var(--heading);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .news-body h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    color: var(--heading);
+  }
+
+  .news-body p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .news-date {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+
   .content-placeholder {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -370,12 +427,15 @@
       <h2>社区提示</h2>
     </div>
 
-    <!-- 内容区占位 -->
-    <div class="content-placeholder">
-      暂无最新内容发布
-    </div>
+    <a href="./clt.html" class="news-item">
+      <span class="news-tag">条款</span>
+      <div class="news-body">
+        <h3>Corn 贡献许可条款（CLT）</h3>
+        <p>向原版 Corn 项目提交代码／文档前，请先阅读贡献者与 DCT 之间的权利义务约定。</p>
+      </div>
+      <span class="news-date"></span>
+    </a>
   </main>
-
   <!-- 页脚 -->
   <footer class="footer">
     <div class="footer-inner">
